@@ -72,12 +72,13 @@
    ```
 2. **api/config.js 직접 생성 (Vercel 서버리스 함수)**:
    - Vercel에 안전하게 주입된 환경 변수를 웹사이트 프론트엔드로 안전하게 전달하기 위한 백엔드 API 엔드포인트를 구현해줘.
+   - 토큰 값 끝에 줄바꿈/공백이 섞여 들어오면 `Authorization` 헤더가 깨져 `fetch`가 실패(`Invalid value`)하므로, 반드시 `.trim()`으로 정리해서 내려줘.
    ```javascript
    export default function handler(req, res) {
      res.setHeader("Access-Control-Allow-Origin", "*");
      res.setHeader("Access-Control-Allow-Methods", "GET");
      res.status(200).json({
-       github_token: process.env.GITHUB_TOKEN || "",
+       github_token: (process.env.GITHUB_TOKEN || "").trim(),
        admin_password: process.env.ADMIN_PASSWORD || "admin1234"
      });
    }
@@ -143,6 +144,7 @@
    - `requireAdmin()` 함수는 비로그인 상태일 때 `admin.html`로 리다이렉트하도록 구현해줘.
    - `isAdmin()` 함수는 `sessionStorage.getItem('isAdmin') === 'true'`로 판별해줘.
    - `handleAgentLogin(event)` 함수는 제거하거나 `admin.html`로 단순 이동하는 형태로 대체해줘 (Admin 로그인은 admin.html에서 전담).
+   - ⚠️ **토큰 정제 필수**: GitHub 요청 헤더를 만들 때 `Authorization: "token " + 토큰`에서 토큰의 공백·줄바꿈을 반드시 제거(`String(token).replace(/\s+/g, "")` 또는 `.trim()`)해줘. 환경변수에 줄바꿈이 섞이면 `Failed to execute 'fetch' on 'Window': Invalid value` 오류로 저장이 실패하기 때문이야. 설정 로드(`loadConfig`) 시점에도 토큰을 `.trim()` 처리할 것.
 
 ### Step 5: Skill 정의서 저장
 `_agent/skills/board-builder/SKILL.md` 파일을 생성하여 스킬 사양을 저장해줘.

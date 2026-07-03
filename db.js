@@ -50,8 +50,8 @@
         const res = await fetch("/api/config", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
-          if (data.github_token) cfg.githubToken = data.github_token;
-          if (data.admin_password) cfg.adminPassword = data.admin_password;
+          if (data.github_token) cfg.githubToken = String(data.github_token).trim();
+          if (data.admin_password) cfg.adminPassword = String(data.admin_password);
         }
       } catch (e) {}
 
@@ -63,7 +63,7 @@
           if (gc.github_repo) cfg.repo = gc.github_repo;
           if (gc.data_file_path) cfg.dataFilePath = gc.data_file_path;
           if (!cfg.githubToken && gc.github_token && gc.github_token !== "YOUR_GITHUB_TOKEN") {
-            cfg.githubToken = gc.github_token;
+            cfg.githubToken = String(gc.github_token).trim();
           }
         }
       } catch (e) {}
@@ -81,7 +81,7 @@
 
   function githubHeaders(cfg) {
     return {
-      Authorization: "token " + cfg.githubToken,
+      Authorization: "token " + String(cfg.githubToken).replace(/\s+/g, ""),
       Accept: "application/vnd.github.v3+json",
       "Content-Type": "application/json"
     };
