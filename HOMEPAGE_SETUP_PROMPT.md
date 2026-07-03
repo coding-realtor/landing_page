@@ -1,6 +1,6 @@
 # 🚀 GitHub API & Vercel 기반 정적 게시판 홈페이지 원클릭 설정 프롬프트
 
-이 프롬프트는 깃허브 보안 차단(Push Protection), Vercel 404 라우팅 오류, 로그인 후 미이동 문제, `.html` 없는 Clean URL(`/admin`) 미적용 문제 등 이번 세션에서 발견된 모든 문제점을 수정·보안하고, 상세 가이드라인(토큰 발급 및 Vercel 설정)까지 완벽히 포함한 **에이전트 원클릭 구축 지시서**입니다. 다음 프로젝트 시작 시 이 내용을 그대로 복사하여 새로운 에이전트 대화창에 입력하시면 됩니다.
+이 프롬프트는 깃허브 보안 차단(Push Protection), Vercel 404 라우팅 오류, 로그인 후 미이동 문제, `.html` 없는 Clean URL(`/admin`) 미적용 문제, 레거시 `builds`로 인한 `/api` 서버리스 함수 404 문제, `public/` 폴더로 인한 루트 페이지 404 문제 등 이번 세션에서 발견된 모든 문제점을 수정·보안하고, 상세 가이드라인(토큰 발급 및 Vercel 설정)까지 완벽히 포함한 **에이전트 원클릭 구축 지시서**입니다. 다음 프로젝트 시작 시 이 내용을 그대로 복사하여 새로운 에이전트 대화창에 입력하시면 됩니다.
 
 ---
 
@@ -56,7 +56,8 @@
 
 ### Step 2: 폴더 구조 자동 생성
 - 필수 폴더를 직접 즉시 생성해줘.
-  - 생성 폴더: `public/data`, `config`, `scripts`, `templates`, `_agent/skills/board-builder`, `api`
+  - 생성 폴더: `data`, `config`, `scripts`, `templates`, `_agent/skills/board-builder`, `api`
+  - ⚠️ **`public`이라는 이름의 폴더는 절대 만들지 마.** Vercel의 "Other" 프리셋은 저장소에 `public/` 폴더가 있으면 그걸 사이트 루트(output 디렉터리)로 취급해서, 루트의 `index.html`·`admin.html` 등 모든 페이지가 404가 나게 돼. 게시글 데이터는 반드시 `data/` 폴더에 둘 것.
 
 ### Step 3: 설정 파일 및 보안 처리 파일 생성
 1. **config/git_config.json 직접 생성**: 
@@ -66,7 +67,7 @@
      "github_token": "YOUR_GITHUB_TOKEN",
      "github_owner": "your_github_owner",
      "github_repo": "your_github_repo",
-     "data_file_path": "public/data/posts.json"
+     "data_file_path": "data/posts.json"
    }
    ```
 2. **api/config.js 직접 생성 (Vercel 서버리스 함수)**:
@@ -97,7 +98,8 @@
 
 1. **vercel.json (Clean URL 설정 파일 — zero-config 방식)**:
    - ⚠️ **`builds` 배열을 절대 사용하지 마.** 레거시 `builds`(특히 `@vercel/node` + `@vercel/static` 혼합)는 `/api` 서버리스 함수 라우팅을 누락시켜 **`/api/config`가 404가 되고, 그 결과 프론트가 토큰을 못 받아 "GitHub 토큰이 설정되지 않았습니다" 오류로 저장이 실패**하는 원인이야.
-   - Vercel은 **`/api` 폴더 안의 파일을 자동으로 서버리스 함수로 배포**하고(`api/config.js` → `/api/config`), 나머지 파일(`*.html`, `db.js`, `screen.png`, `public/**`, `config/git_config.json`)은 자동으로 정적 서빙하므로 `builds` 선언이 전혀 필요 없어. 이 zero-config 방식이 함수 배포에 가장 안정적이야.
+   - Vercel은 **`/api` 폴더 안의 파일을 자동으로 서버리스 함수로 배포**하고(`api/config.js` → `/api/config`), 나머지 파일(`*.html`, `db.js`, `screen.png`, `data/posts.json`, `config/git_config.json`)은 자동으로 정적 서빙하므로 `builds` 선언이 전혀 필요 없어. 이 zero-config 방식이 함수 배포에 가장 안정적이야.
+   - ⚠️ **단, 저장소에 `public/` 폴더가 있으면 안 돼.** Vercel이 `public/`을 사이트 루트로 삼아 루트의 HTML들이 전부 404가 나므로, 데이터는 `data/` 폴더에 둬(Step 2 참고).
    - **`"cleanUrls": true`** → `.html` 없이 `/admin`, `/news`, `/news-detail`, `/news-write`로 접속. `/admin.html` 요청은 자동으로 `/admin`으로 308 리다이렉트되어 정규화됨.
    - **`"trailingSlash": false`** → 주소 끝의 불필요한 슬래시 제거.
    - vercel.json은 아래처럼 **딱 이 두 줄만** 두면 돼. (`version`, `builds`, `routes` 모두 넣지 말 것)
@@ -107,7 +109,7 @@
      "trailingSlash": false
    }
    ```
-   > 📌 **경로 규칙**: `/api/config.js`는 zero-config로 자동 배포되어 `/api/config`로 호출돼. `config/git_config.json`, `public/data/posts.json`, `db.js`, `screen.png` 등 모든 정적 파일도 자동 서빙되므로 별도 builds가 필요 없어. 내부 페이지 링크(`href`)·JS 리다이렉트는 `admin.html`처럼 `.html`을 붙여도 cleanUrls가 자동 정규화하고 로컬 `http-server`와도 호환돼. 단, `<img src>`·`<script src>`·`fetch()` 등 **실제 리소스 경로(db.js, screen.png, config/git_config.json, public/data/posts.json, /api/config)는 확장자·경로를 그대로 유지**해야 하며 clean URL 대상이 아니야.
+   > 📌 **경로 규칙**: `/api/config.js`는 zero-config로 자동 배포되어 `/api/config`로 호출돼. `config/git_config.json`, `data/posts.json`, `db.js`, `screen.png` 등 모든 정적 파일도 자동 서빙되므로 별도 builds가 필요 없어. 내부 페이지 링크(`href`)·JS 리다이렉트는 `admin.html`처럼 `.html`을 붙여도 cleanUrls가 자동 정규화하고 로컬 `http-server`와도 호환돼. 단, `<img src>`·`<script src>`·`fetch()` 등 **실제 리소스 경로(db.js, screen.png, config/git_config.json, data/posts.json, /api/config)는 확장자·경로를 그대로 유지**해야 하며 clean URL 대상이 아니야.
 2. **index.html**:
    - 전달받은 메인 디자인을 반영하되, 푸터의 "Agent Login" 링크에 `id="agent-login-btn"`과 `href="admin.html"`을 바인딩하여 클릭 시 관리자 페이지로 이동하게 해줘. 주석을 제거해줘.
    - **메인 페이지에 "최신 게시판 소식" 섹션을 추가**해줘. 기존 디자인의 색상·폰트 스타일을 유지하면서, `id="board-preview"` 영역에 게시글 카드 3개를 동적으로 렌더링하는 섹션을 구현해줘. 섹션 구성:
@@ -154,7 +156,7 @@
 ├── _agent/skills/board-builder/SKILL.md
 ├── api/config.js
 ├── config/git_config.json
-├── public/data/posts.json
+├── data/posts.json
 ├── vercel.json
 ├── db.js
 ├── index.html          ← 최신 게시글 3개 미리보기 섹션 포함
