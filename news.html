@@ -239,7 +239,7 @@
                 return;
             }
             listEl.innerHTML = posts.map(function (p) {
-                const summary = stripHtml(p.content || '').slice(0, 120);
+                const summary = markdownToText(p.content || '').slice(0, 120);
                 return '<a href="news-detail.html?id=' + encodeURIComponent(p.id) + '" class="news-item flex flex-col gap-1 py-base border-b border-border hover:bg-surface-container-low transition-colors cursor-pointer px-2 -mx-2 rounded-lg block">' +
                     '<div class="flex items-center gap-2 mb-1">' +
                     '<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">' + escapeHtml(p.category || '소식') + '</span>' +

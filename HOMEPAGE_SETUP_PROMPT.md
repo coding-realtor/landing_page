@@ -123,6 +123,7 @@
    - 푸터의 "Agent Login" 링크를 `href="admin.html"`로 연결하고, 검색창 `#search-input` 및 목록 영역 `#news-list`를 구현한 뒤 주석을 제거해줘.
 4. **news-detail.html**:
    - 게시글 상세보기 페이지를 생성하고 주석을 제거해줘.
+   - 본문(`content`)은 평문이 아니라 **마크다운으로 렌더링**해줘. `db.js`의 `renderMarkdown(post.content)` 결과 HTML을 상세 영역에 삽입하고(`escapeHtml` 대신), 컨테이너에는 `white-space: pre-wrap`을 쓰지 마(렌더된 블록 요소가 자체 여백을 가짐).
    - 관리자 로그인 상태(`isAdmin()`)일 때만 수정·삭제 버튼을 표시해줘. 수정 버튼은 `news-write.html?id={post.id}`로, 삭제는 `deletePost()` 후 `news.html`로 이동해줘.
 5. **news-write.html**:
    - 글쓰기 및 수정 페이지로, 관리자 외 접근 차단(`requireAdmin()`) 로직을 구현하고, 비관리자 접근 시 `admin.html`로 리다이렉트해줘. 주석을 제거해줘.
@@ -145,6 +146,11 @@
    - `isAdmin()` 함수는 `sessionStorage.getItem('isAdmin') === 'true'`로 판별해줘.
    - `handleAgentLogin(event)` 함수는 제거하거나 `admin.html`로 단순 이동하는 형태로 대체해줘 (Admin 로그인은 admin.html에서 전담).
    - ⚠️ **토큰 정제 필수**: GitHub 요청 헤더를 만들 때 `Authorization: "token " + 토큰`에서 토큰의 공백·줄바꿈을 반드시 제거(`String(token).replace(/\s+/g, "")` 또는 `.trim()`)해줘. 환경변수에 줄바꿈이 섞이면 `Failed to execute 'fetch' on 'Window': Invalid value` 오류로 저장이 실패하기 때문이야. 설정 로드(`loadConfig`) 시점에도 토큰을 `.trim()` 처리할 것.
+   - 📝 **마크다운 렌더러 포함**: 외부 라이브러리 없이 동작하는 `renderMarkdown(src)`(제목 `#`, 목록 `-`/`1.`, `**굵게**`, `*기울임*`, `~~취소선~~`, `` `코드` ``, ```` ```코드블록``` ````, `>` 인용, `[텍스트](url)` 링크, `---` 구분선, 문단·줄바꿈 지원)와 목록 요약용 `markdownToText(src)`(마크다운을 평문으로 변환)를 구현하고 전역 노출해줘.
+     - **보안**: `renderMarkdown`은 반드시 입력을 먼저 HTML-escape한 뒤 서식을 적용해서, 본문에 들어온 `<script>` 등 원시 HTML이 그대로 실행되지 않게(안전한 태그만 생성) 해줘. 링크는 `http/https/mailto`만 허용.
+     - 코드 스팬 처리는 숫자 플레이스홀더/센티넬 대신 **백틱 기준 분할**로 구현해 "5 억" 같은 일반 숫자가 코드로 오인되지 않게 할 것.
+     - `news-detail.html` 본문은 `renderMarkdown`으로, `news.html`·`index.html`의 목록·미리보기 요약은 `markdownToText(...).slice(0, N)`로 렌더링해줘.
+   - 📄 **작성 편의용 템플릿**: `templates/post-template.md`를 생성해줘. 상단 프론트매터(`--- title / category / date ---`)로 메타데이터를, 그 아래는 마크다운 본문을 적는 형식이야. (프론트매터는 사이트가 파싱하지 않고, 사용자가 글을 건네줄 때 제목·카테고리·본문을 구분하기 위한 규약임. 본문 마크다운만 `content` 필드에 저장.)
 
 ### Step 5: Skill 정의서 저장
 `_agent/skills/board-builder/SKILL.md` 파일을 생성하여 스킬 사양을 저장해줘.

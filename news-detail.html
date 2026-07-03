@@ -64,7 +64,8 @@
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         img { max-width: 100%; }
-        .post-content { white-space: pre-wrap; word-break: break-word; line-height: 1.8; }
+        .post-content { word-break: break-word; line-height: 1.8; }
+        .post-content a { word-break: break-all; }
     </style>
 </head>
 <body class="bg-canvas text-on-surface pb-24 md:pb-0">
@@ -141,7 +142,7 @@
                 '<span class="text-muted font-label-sm text-label-sm">' + escapeHtml(post.date || '') + '</span>' +
                 '</div>' +
                 '<h1 class="font-display-lg text-display-lg text-on-surface mb-lg leading-snug">' + escapeHtml(post.title || '') + '</h1>' +
-                '<div class="post-content font-body-lg text-body-lg text-grey-700 border-t border-border pt-lg">' + escapeHtml(post.content || '') + '</div>' +
+                '<div class="post-content font-body-lg text-body-lg text-grey-700 border-t border-border pt-lg">' + renderMarkdown(post.content || '') + '</div>' +
                 adminActions;
 
             const delBtn = document.getElementById('delete-btn');

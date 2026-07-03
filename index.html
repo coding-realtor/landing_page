@@ -474,7 +474,7 @@
                 const container = document.getElementById('board-preview');
                 const latest = posts.slice(0, 3);
                 container.innerHTML = latest.map(function (p) {
-                    const summary = stripHtml(p.content || '').slice(0, 60);
+                    const summary = markdownToText(p.content || '').slice(0, 60);
                     return '<a href="news-detail.html?id=' + encodeURIComponent(p.id) + '" class="group bg-white rounded-xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 p-lg space-y-3 block">' +
                         '<div class="flex items-center gap-2">' +
                         '<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">' + escapeHtml(p.category || '소식') + '</span>' +

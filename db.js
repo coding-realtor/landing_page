@@ -25,6 +25,120 @@
     return String(str == null ? "" : str).replace(/<[^>]*>/g, "");
   }
 
+  function renderMarkdown(src) {
+    if (src == null) return "";
+    var lines = String(src).replace(/\r\n?/g, "\n").split("\n");
+    var out = [];
+    var i = 0;
+    var n = lines.length;
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function formatSegment(t) {
+      t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, function (m, txt, u) {
+        return '<a href="' + u + '" target="_blank" rel="noopener noreferrer" class="text-primary underline">' + txt + "</a>";
+      });
+      t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      t = t.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+      t = t.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+      t = t.replace(/(^|[\s(])_([^_\n]+)_(?=[\s).,!?]|$)/g, "$1<em>$2</em>");
+      return t;
+    }
+
+    function inline(raw) {
+      var s = esc(raw);
+      var parts = s.split(/(`[^`]+`)/g);
+      var result = "";
+      for (var k = 0; k < parts.length; k++) {
+        var part = parts[k];
+        if (part.length >= 2 && part.charAt(0) === "`" && part.charAt(part.length - 1) === "`") {
+          result += '<code class="px-1 py-0.5 rounded bg-surface-container text-secondary text-[0.9em]">' + part.slice(1, -1) + "</code>";
+        } else {
+          result += formatSegment(part);
+        }
+      }
+      return result;
+    }
+
+    var headingClass = {
+      1: "text-display-lg font-display-lg text-on-surface mt-6 mb-3",
+      2: "text-heading-lg font-heading-md text-on-surface mt-6 mb-2",
+      3: "text-heading-md font-heading-md text-on-surface mt-4 mb-2",
+      4: "text-body-lg font-heading-md font-bold text-on-surface mt-4 mb-1",
+      5: "text-body-lg font-bold text-on-surface mt-3 mb-1",
+      6: "text-body-md font-bold text-on-surface mt-3 mb-1"
+    };
+
+    function isBlockStart(l) {
+      return /^\s*$/.test(l) || /^```/.test(l) || /^#{1,6}\s+/.test(l) ||
+        /^\s*>\s?/.test(l) || /^\s*[-*+]\s+/.test(l) || /^\s*\d+\.\s+/.test(l) ||
+        /^\s*([-*_])\1\1+\s*$/.test(l);
+    }
+
+    while (i < n) {
+      var line = lines[i];
+
+      if (/^```/.test(line)) {
+        var code = [];
+        i++;
+        while (i < n && !/^```/.test(lines[i])) { code.push(esc(lines[i])); i++; }
+        i++;
+        out.push('<pre class="my-3 p-3 rounded-lg bg-surface-container overflow-x-auto text-body-md"><code>' + code.join("\n") + "</code></pre>");
+        continue;
+      }
+
+      if (/^\s*$/.test(line)) { i++; continue; }
+
+      var h = /^(#{1,6})\s+(.*)$/.exec(line);
+      if (h) {
+        var lvl = h[1].length;
+        out.push("<h" + lvl + ' class="' + headingClass[lvl] + '">' + inline(h[2]) + "</h" + lvl + ">");
+        i++; continue;
+      }
+
+      if (/^\s*([-*_])\1\1+\s*$/.test(line)) { out.push('<hr class="my-4 border-border">'); i++; continue; }
+
+      if (/^\s*>\s?/.test(line)) {
+        var bq = [];
+        while (i < n && /^\s*>\s?/.test(lines[i])) { bq.push(inline(lines[i].replace(/^\s*>\s?/, ""))); i++; }
+        out.push('<blockquote class="my-3 pl-4 border-l-4 border-secondary-container text-grey-600 italic">' + bq.join("<br>") + "</blockquote>");
+        continue;
+      }
+
+      if (/^\s*[-*+]\s+/.test(line)) {
+        var items = [];
+        while (i < n && /^\s*[-*+]\s+/.test(lines[i])) { items.push("<li>" + inline(lines[i].replace(/^\s*[-*+]\s+/, "")) + "</li>"); i++; }
+        out.push('<ul class="list-disc pl-6 space-y-1 my-3">' + items.join("") + "</ul>");
+        continue;
+      }
+
+      if (/^\s*\d+\.\s+/.test(line)) {
+        var oitems = [];
+        while (i < n && /^\s*\d+\.\s+/.test(lines[i])) { oitems.push("<li>" + inline(lines[i].replace(/^\s*\d+\.\s+/, "")) + "</li>"); i++; }
+        out.push('<ol class="list-decimal pl-6 space-y-1 my-3">' + oitems.join("") + "</ol>");
+        continue;
+      }
+
+      var para = [];
+      while (i < n && !isBlockStart(lines[i])) { para.push(inline(lines[i])); i++; }
+      out.push('<p class="my-3 leading-relaxed">' + para.join("<br>") + "</p>");
+    }
+
+    return out.join("\n");
+  }
+
+  function markdownToText(src) {
+    var txt = renderMarkdown(src).replace(/<[^>]*>/g, " ");
+    txt = txt.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"');
+    return txt.replace(/\s+/g, " ").trim();
+  }
+
   function todayString() {
     const d = new Date();
     const y = d.getFullYear();
@@ -280,4 +394,6 @@
   global.handleAgentLogin = handleAgentLogin;
   global.escapeHtml = escapeHtml;
   global.stripHtml = stripHtml;
+  global.renderMarkdown = renderMarkdown;
+  global.markdownToText = markdownToText;
 })(window);
