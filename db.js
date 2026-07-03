@@ -43,7 +43,7 @@
         adminPassword: "admin1234",
         owner: "",
         repo: "",
-        dataFilePath: "public/data/posts.json"
+        dataFilePath: "data/posts.json"
       };
 
       try {
