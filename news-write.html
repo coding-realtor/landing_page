@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>글쓰기 | Jamsil Real Estate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#004dc9",
+                    "border": "#e5e8eb",
+                    "surface": "#f2f4f6",
+                    "muted": "#8b95a1",
+                    "grey-700": "#333d4b",
+                    "on-surface": "#181c23",
+                    "secondary-container": "#0063fd",
+                    "on-secondary-container": "#f3f3ff",
+                    "surface-container-low": "#f2f3fd",
+                    "on-secondary": "#ffffff",
+                    "primary": "#0059b9",
+                    "primary-container": "#1071e5",
+                    "error": "#f04452",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ecedf7",
+                    "canvas": "#ffffff",
+                    "grey-600": "#4e5968"
+            },
+            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            "spacing": { "lg": "24px", "gutter": "16px", "base": "16px", "xxl": "48px", "xl": "32px", "margin-mobile": "20px" },
+            "fontFamily": {
+                    "body-lg": ["Inter", "sans-serif"],
+                    "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "heading-md": ["Plus Jakarta Sans", "sans-serif"],
+                    "display-hero": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["26px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "heading-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-hero": ["30px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-xxl">
+<header class="bg-canvas border-b border-border sticky top-0 w-full z-50">
+<nav class="flex justify-between items-center h-20 px-base md:px-xxl max-w-3xl mx-auto w-full">
+<a class="font-display-lg text-display-lg text-secondary" href="index.html">Jamsil Real Estate</a>
+<a href="news.html" class="text-grey-700 font-medium hover:text-secondary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined">list</span> 목록
+</a>
+</nav>
+</header>
+<main class="pt-xl pb-xxl px-base md:px-xxl max-w-3xl mx-auto w-full min-h-screen">
+<h1 id="form-title" class="font-display-hero text-display-hero text-on-surface mb-xl">새 소식 작성</h1>
+<form id="post-form" class="space-y-lg bg-canvas rounded-xl border border-border p-lg md:p-xl">
+<div>
+<label class="block font-heading-md text-heading-md text-on-surface mb-2" for="category">카테고리</label>
+<select id="category" class="w-full rounded-xl border border-border bg-surface px-base py-3 font-body-lg text-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container min-h-[44px]">
+<option value="시황">시황</option>
+<option value="공지">공지</option>
+<option value="잠실정보">잠실정보</option>
+<option value="소식">소식</option>
+</select>
+</div>
+<div>
+<label class="block font-heading-md text-heading-md text-on-surface mb-2" for="title">제목</label>
+<input id="title" type="text" placeholder="제목을 입력하세요" class="w-full rounded-xl border border-border bg-surface px-base py-3 font-body-lg text-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container min-h-[44px]"/>
+</div>
+<div>
+<label class="block font-heading-md text-heading-md text-on-surface mb-2" for="content">내용</label>
+<textarea id="content" rows="14" placeholder="내용을 입력하세요" class="w-full rounded-xl border border-border bg-surface px-base py-3 font-body-lg text-body-lg leading-relaxed focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"></textarea>
+</div>
+<p id="form-error" class="hidden text-error font-body-md text-body-md"></p>
+<div class="flex flex-col sm:flex-row gap-3 pt-2">
+<button type="submit" id="submit-btn" class="flex-1 bg-primary text-on-primary px-lg py-4 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all active:scale-[0.99] min-h-[44px]">저장하기</button>
+<a href="news.html" class="flex-1 text-center bg-surface border border-border text-grey-700 px-lg py-4 rounded-xl font-heading-md text-heading-md hover:bg-surface-container transition-all min-h-[44px]">취소</a>
+</div>
+</form>
+</main>
+<script src="db.js"></script>
+<script>
+        if (!requireAdmin()) {
+            throw new Error('관리자 인증이 필요합니다.');
+        }
+
+        function getParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        const editId = getParam('id');
+        const form = document.getElementById('post-form');
+        const errorEl = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function showError(msg) {
+            errorEl.textContent = msg;
+            errorEl.classList.remove('hidden');
+        }
+
+        async function initEdit() {
+            if (!editId) return;
+            document.getElementById('form-title').textContent = '소식 수정';
+            try {
+                const post = await getPost(editId);
+                if (!post) { showError('수정할 게시글을 찾을 수 없습니다.'); return; }
+                document.getElementById('category').value = post.category || '소식';
+                document.getElementById('title').value = post.title || '';
+                document.getElementById('content').value = post.content || '';
+            } catch (e) {
+                showError('게시글을 불러오지 못했습니다.');
+            }
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            errorEl.classList.add('hidden');
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+
+            if (!title) { showError('제목을 입력해주세요.'); return; }
+            if (!content) { showError('내용을 입력해주세요.'); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '저장 중...';
+            try {
+                if (editId) {
+                    await updatePost(editId, { category: category, title: title, content: content });
+                    window.location.href = 'news-detail.html?id=' + encodeURIComponent(editId);
+                } else {
+                    const created = await createPost({ category: category, title: title, content: content });
+                    window.location.href = 'news-detail.html?id=' + encodeURIComponent(created.id);
+                }
+            } catch (err) {
+                showError(err.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = '저장하기';
+            }
+        });
+
+        initEdit();
+    </script>
+</body></html>

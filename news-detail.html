@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>게시글 상세 | Jamsil Real Estate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#004dc9",
+                    "surface-container-high": "#e6e8f2",
+                    "border": "#e5e8eb",
+                    "inverse-surface": "#2d3038",
+                    "surface": "#f2f4f6",
+                    "muted": "#8b95a1",
+                    "grey-700": "#333d4b",
+                    "on-surface": "#181c23",
+                    "success": "#03b26c",
+                    "background": "#f9f9ff",
+                    "secondary-container": "#0063fd",
+                    "on-secondary-container": "#f3f3ff",
+                    "surface-container-low": "#f2f3fd",
+                    "on-secondary": "#ffffff",
+                    "primary": "#0059b9",
+                    "primary-container": "#1071e5",
+                    "error": "#f04452",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ecedf7",
+                    "canvas": "#ffffff",
+                    "grey-600": "#4e5968"
+            },
+            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            "spacing": { "lg": "24px", "gutter": "16px", "base": "16px", "xxl": "48px", "xl": "32px", "margin-mobile": "20px" },
+            "fontFamily": {
+                    "body-lg": ["Inter", "sans-serif"],
+                    "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "heading-lg": ["Plus Jakarta Sans", "sans-serif"],
+                    "display-hero": ["Plus Jakarta Sans", "sans-serif"],
+                    "heading-md": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["26px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "heading-lg": ["22px", {"lineHeight": "30px", "fontWeight": "700"}],
+                    "display-hero": ["30px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "heading-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        img { max-width: 100%; }
+        .post-content { white-space: pre-wrap; word-break: break-word; line-height: 1.8; }
+    </style>
+</head>
+<body class="bg-canvas text-on-surface pb-24 md:pb-0">
+<header class="bg-canvas border-b border-border fixed top-0 w-full z-50">
+<nav class="flex justify-between items-center h-20 px-base md:px-xxl max-w-7xl mx-auto w-full">
+<a class="font-display-lg text-display-lg text-secondary" href="index.html">Jamsil Real Estate</a>
+<div class="hidden md:flex items-center gap-xl">
+<a class="text-grey-700 font-medium hover:text-secondary transition-colors" href="index.html">Listings</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1" href="news.html">News</a>
+<a class="text-grey-700 font-medium hover:text-secondary transition-colors" href="#">About</a>
+<a class="text-grey-700 font-medium hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<div class="md:hidden"><span class="material-symbols-outlined text-grey-700">menu</span></div>
+</nav>
+</header>
+<main class="pt-32 pb-xxl px-base md:px-xxl max-w-3xl mx-auto w-full min-h-screen">
+<a href="news.html" class="inline-flex items-center gap-1 text-muted hover:text-secondary transition-colors mb-lg font-body-md text-body-md">
+<span class="material-symbols-outlined">arrow_back</span> 목록으로
+</a>
+<article id="post-container">
+<div class="py-xxl text-center text-muted font-body-lg">게시글을 불러오는 중입니다...</div>
+</article>
+</main>
+<footer class="w-full py-xxl px-base md:px-xxl flex flex-col md:flex-row justify-between items-center gap-base bg-surface border-t border-border mt-xxl">
+<div class="flex flex-col gap-2">
+<div class="font-heading-md text-heading-md text-grey-700">Jamsil Real Estate</div>
+<p class="font-body-md text-body-md text-grey-600">© 2024 Jamsil Real Estate Agency. Registration No. 123-45-67890. All rights reserved.</p>
+</div>
+<div class="flex gap-lg flex-wrap justify-center">
+<a class="text-grey-600 font-body-md text-body-md hover:underline decoration-secondary transition-all" href="#">Privacy Policy</a>
+<a class="text-grey-600 font-body-md text-body-md hover:underline decoration-secondary transition-all" href="#">Terms of Service</a>
+<a id="agent-login-btn" class="text-grey-600 font-body-md text-body-md hover:underline decoration-secondary transition-all" href="admin.html">Agent Login</a>
+</div>
+</footer>
+<div class="fixed bottom-0 left-0 right-0 bg-canvas border-t border-border flex md:hidden justify-around items-center h-16 z-50">
+<a class="flex flex-col items-center gap-1 text-grey-600" href="index.html">
+<span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-grey-600" href="index.html">
+<span class="material-symbols-outlined">search</span><span class="text-[10px]">매물찾기</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary font-bold" href="news.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span><span class="text-[10px]">소식</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-grey-600" href="admin.html">
+<span class="material-symbols-outlined">person</span><span class="text-[10px]">내정보</span>
+</a>
+</div>
+<script src="db.js"></script>
+<script>
+        function getParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        function renderPost(post) {
+            const container = document.getElementById('post-container');
+            if (!post) {
+                container.innerHTML = '<div class="py-xxl text-center text-muted font-body-lg">게시글을 찾을 수 없습니다.</div>';
+                return;
+            }
+
+            let adminActions = '';
+            if (isAdmin()) {
+                adminActions =
+                    '<div class="flex gap-2 mt-xl pt-lg border-t border-border">' +
+                    '<a href="news-write.html?id=' + encodeURIComponent(post.id) + '" class="inline-flex items-center gap-1 bg-surface border border-border text-grey-700 px-lg py-3 rounded-xl font-heading-md text-heading-md hover:bg-surface-container transition-all min-h-[44px]"><span class="material-symbols-outlined">edit</span> 수정</a>' +
+                    '<button id="delete-btn" class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-lg py-3 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all min-h-[44px]"><span class="material-symbols-outlined">delete</span> 삭제</button>' +
+                    '</div>';
+            }
+
+            container.innerHTML =
+                '<div class="flex items-center gap-2 mb-base">' +
+                '<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">' + escapeHtml(post.category || '소식') + '</span>' +
+                '<span class="text-muted font-label-sm text-label-sm">' + escapeHtml(post.date || '') + '</span>' +
+                '</div>' +
+                '<h1 class="font-display-lg text-display-lg text-on-surface mb-lg leading-snug">' + escapeHtml(post.title || '') + '</h1>' +
+                '<div class="post-content font-body-lg text-body-lg text-grey-700 border-t border-border pt-lg">' + escapeHtml(post.content || '') + '</div>' +
+                adminActions;
+
+            const delBtn = document.getElementById('delete-btn');
+            if (delBtn) {
+                delBtn.addEventListener('click', async function () {
+                    if (!confirm('정말 이 게시글을 삭제하시겠습니까?')) return;
+                    delBtn.disabled = true;
+                    delBtn.textContent = '삭제 중...';
+                    try {
+                        await deletePost(post.id);
+                        window.location.href = 'news.html';
+                    } catch (e) {
+                        alert(e.message);
+                        delBtn.disabled = false;
+                        delBtn.textContent = '삭제';
+                    }
+                });
+            }
+        }
+
+        (async function () {
+            const id = getParam('id');
+            if (!id) { renderPost(null); return; }
+            try {
+                const post = await getPost(id);
+                renderPost(post);
+            } catch (e) {
+                renderPost(null);
+            }
+        })();
+    </script>
+</body></html>
