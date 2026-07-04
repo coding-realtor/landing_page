@@ -1,221 +1,213 @@
 <!DOCTYPE html>
-<html lang="ko"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>관리자 | Jamsil Real Estate</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "secondary": "#004dc9",
-                    "border": "#e5e8eb",
-                    "surface": "#f2f4f6",
-                    "muted": "#8b95a1",
-                    "grey-700": "#333d4b",
-                    "on-surface": "#181c23",
-                    "secondary-container": "#0063fd",
-                    "on-secondary-container": "#f3f3ff",
-                    "surface-container-low": "#f2f3fd",
-                    "on-secondary": "#ffffff",
-                    "primary": "#0059b9",
-                    "primary-container": "#1071e5",
-                    "error": "#f04452",
-                    "error-container": "#ffdad6",
-                    "on-error-container": "#93000a",
-                    "on-primary": "#ffffff",
-                    "surface-container": "#ecedf7",
-                    "canvas": "#ffffff",
-                    "grey-600": "#4e5968"
-            },
-            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-            "spacing": { "lg": "24px", "gutter": "16px", "base": "16px", "xxl": "48px", "xl": "32px", "margin-mobile": "20px" },
-            "fontFamily": {
-                    "body-lg": ["Inter", "sans-serif"],
-                    "display-lg": ["Plus Jakarta Sans", "sans-serif"],
-                    "body-md": ["Inter", "sans-serif"],
-                    "label-sm": ["Inter", "sans-serif"],
-                    "heading-md": ["Plus Jakarta Sans", "sans-serif"],
-                    "display-hero": ["Plus Jakarta Sans", "sans-serif"]
-            },
-            "fontSize": {
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "display-lg": ["26px", {"lineHeight": "36px", "fontWeight": "700"}],
-                    "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                    "heading-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                    "display-hero": ["30px", {"lineHeight": "40px", "fontWeight": "700"}]
-            }
-          }
-        }
-      }
-    </script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "secondary": "#004dc9","border": "#e5e8eb","surface": "#f2f4f6","muted": "#8b95a1","grey-700": "#333d4b",
+        "on-surface": "#181c23","secondary-container": "#0063fd","on-secondary-container": "#f3f3ff",
+        "on-secondary": "#ffffff","primary": "#0059b9","primary-container": "#1071e5","on-primary": "#ffffff",
+        "error": "#f04452","surface-container": "#ecedf7","canvas": "#ffffff","grey-600": "#4e5968","success": "#03b26c"
+      },
+      "borderRadius": { "DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px" },
+      "spacing": { "lg": "24px","base": "16px","xxl": "48px","xl": "32px" },
+      "fontFamily": { "body-lg": ["Inter","sans-serif"],"display-lg": ["Plus Jakarta Sans","sans-serif"],"body-md": ["Inter","sans-serif"],"label-sm": ["Inter","sans-serif"],"heading-md": ["Plus Jakarta Sans","sans-serif"],"display-hero": ["Plus Jakarta Sans","sans-serif"] },
+      "fontSize": { "body-lg": ["16px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg": ["26px",{"lineHeight":"36px","fontWeight":"700"}],"body-md": ["14px",{"lineHeight":"22px","fontWeight":"400"}],"label-sm": ["12px",{"lineHeight":"16px","fontWeight":"500"}],"heading-md": ["20px",{"lineHeight":"28px","fontWeight":"600"}],"display-hero": ["30px",{"lineHeight":"40px","fontWeight":"700"}] }
+    }
+  }
+}
+</script>
 <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-    </style>
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
+</style>
 </head>
 <body class="bg-surface text-on-surface min-h-screen">
-<header class="bg-canvas border-b border-border sticky top-0 w-full z-50">
-<nav class="flex justify-between items-center h-20 px-base md:px-xxl max-w-6xl mx-auto w-full">
-<a class="font-display-lg text-display-lg text-secondary" href="index.html">Jamsil Real Estate</a>
-<span class="text-muted font-body-md text-body-md">관리자 페이지</span>
-</nav>
+
+<header class="bg-canvas border-b border-border fixed top-0 w-full z-50">
+  <nav class="flex justify-between items-center h-20 px-base md:px-xxl max-w-7xl mx-auto w-full">
+    <a href="index.html" class="font-display-lg text-display-lg text-secondary">Jamsil Real Estate</a>
+    <div class="hidden md:flex items-center gap-xl">
+      <a class="text-grey-700 font-medium hover:text-secondary transition-colors" href="index.html">홈</a>
+      <a class="text-grey-700 font-medium hover:text-secondary transition-colors" href="news.html">게시판</a>
+    </div>
+  </nav>
 </header>
 
-<section id="login-view" class="hidden min-h-[calc(100vh-80px)] flex items-center justify-center px-base py-xxl">
-<div class="w-full max-w-md bg-canvas rounded-xl border border-border shadow-sm p-xl">
-<div class="text-center mb-xl space-y-2">
-<div class="w-14 h-14 mx-auto bg-primary-container rounded-full flex items-center justify-center">
-<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">lock</span>
-</div>
-<h1 class="font-display-lg text-display-lg text-on-surface">관리자 로그인</h1>
-<p class="font-body-md text-body-md text-muted">게시판을 관리하려면 비밀번호를 입력하세요.</p>
-</div>
-<form id="login-form" class="space-y-base">
-<input id="password" type="password" placeholder="비밀번호" autocomplete="current-password" class="w-full rounded-xl border border-border bg-surface px-base py-3 font-body-lg text-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container min-h-[44px]"/>
-<p id="login-error" class="hidden text-error font-body-md text-body-md"></p>
-<button type="submit" id="login-btn" class="w-full bg-primary text-on-primary px-lg py-4 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all active:scale-[0.99] min-h-[44px]">로그인</button>
-</form>
-<a href="index.html" class="block text-center text-muted font-body-md text-body-md mt-lg hover:text-secondary transition-colors">← 홈으로 돌아가기</a>
-</div>
-</section>
+<main class="pt-28 pb-xxl px-base md:px-xxl max-w-5xl mx-auto w-full">
 
-<section id="dashboard-view" class="hidden max-w-6xl mx-auto w-full px-base md:px-xxl py-xl">
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-base mb-xl">
-<h1 class="font-display-hero text-display-hero text-on-surface">게시글 관리</h1>
-<div class="flex gap-2">
-<a href="news-write.html" class="inline-flex items-center gap-1 bg-primary text-on-primary px-lg py-3 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all min-h-[44px]">
-<span class="material-symbols-outlined">add</span> 새 글 작성
-</a>
-<button id="logout-btn" class="inline-flex items-center gap-1 bg-surface border border-border text-grey-700 px-lg py-3 rounded-xl font-heading-md text-heading-md hover:bg-surface-container transition-all min-h-[44px]">
-<span class="material-symbols-outlined">logout</span> 로그아웃
-</button>
+  <div id="login-section" class="hidden flex items-center justify-center min-h-[70vh]">
+    <div class="bg-canvas rounded-2xl border border-border shadow-lg p-xl w-full max-w-md">
+      <div class="text-center mb-xl">
+        <div class="w-16 h-16 bg-primary-container rounded-2xl flex items-center justify-center mx-auto mb-lg">
+          <span class="material-symbols-outlined text-white text-[32px]" style="font-variation-settings:'FILL' 1;">lock</span>
+        </div>
+        <h1 class="font-display-lg text-display-lg text-on-surface">관리자 로그인</h1>
+        <p class="font-body-md text-body-md text-muted mt-2">게시판 관리를 위해 로그인하세요</p>
+      </div>
+      <div class="space-y-lg">
+        <div>
+          <label class="block font-heading-md text-heading-md text-on-surface mb-2" for="password-input">비밀번호</label>
+          <input id="password-input" type="password" class="w-full bg-surface border border-border rounded-xl px-base py-3 font-body-lg text-body-lg text-on-surface placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary min-h-[44px]" placeholder="관리자 비밀번호 입력">
+        </div>
+        <div id="login-error" class="hidden text-error font-body-md text-body-md bg-red-50 border border-red-200 rounded-xl px-base py-3"></div>
+        <button id="login-btn" class="w-full bg-primary text-on-primary py-4 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all min-h-[44px]">로그인</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard-section" class="hidden">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-base mb-xl">
+      <h1 class="font-display-hero text-display-hero text-on-surface">게시글 관리</h1>
+      <div class="flex gap-base">
+        <a href="news-write.html" class="flex items-center gap-2 bg-primary text-on-primary px-lg py-3 rounded-xl font-heading-md text-heading-md hover:opacity-90 transition-all min-h-[44px]">
+          <span class="material-symbols-outlined">add</span>새 글 작성
+        </a>
+        <button id="logout-btn" class="flex items-center gap-2 bg-surface border border-border text-grey-700 px-lg py-3 rounded-xl font-heading-md text-heading-md hover:bg-surface-container transition-all min-h-[44px]">
+          <span class="material-symbols-outlined">logout</span>로그아웃
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-canvas rounded-xl border border-border overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-surface border-b border-border">
+            <tr>
+              <th class="text-left px-lg py-3 font-heading-md text-heading-md text-on-surface w-12">번호</th>
+              <th class="text-left px-lg py-3 font-heading-md text-heading-md text-on-surface w-24">카테고리</th>
+              <th class="text-left px-lg py-3 font-heading-md text-heading-md text-on-surface">제목</th>
+              <th class="text-left px-lg py-3 font-heading-md text-heading-md text-on-surface w-28 hidden sm:table-cell">작성일</th>
+              <th class="text-center px-lg py-3 font-heading-md text-heading-md text-on-surface w-32">관리</th>
+            </tr>
+          </thead>
+          <tbody id="posts-table-body">
+            <tr><td colspan="5" class="text-center py-xl text-muted font-body-md text-body-md">불러오는 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="fixed bottom-0 left-0 right-0 bg-canvas border-t border-border flex md:hidden justify-around items-center h-16 z-50">
+  <a class="flex flex-col items-center gap-1 text-grey-600 min-w-[44px] min-h-[44px] justify-center" href="index.html">
+    <span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+  </a>
+  <a class="flex flex-col items-center gap-1 text-grey-600 min-w-[44px] min-h-[44px] justify-center" href="news.html">
+    <span class="material-symbols-outlined">newspaper</span><span class="text-[10px]">소식</span>
+  </a>
+  <a class="flex flex-col items-center gap-1 text-secondary font-bold min-w-[44px] min-h-[44px] justify-center" href="admin.html">
+    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">person</span><span class="text-[10px]">관리</span>
+  </a>
 </div>
-</div>
-<div class="bg-canvas rounded-xl border border-border overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-low border-b border-border text-muted font-label-sm text-label-sm">
-<th class="px-base py-3 whitespace-nowrap">번호</th>
-<th class="px-base py-3 whitespace-nowrap">카테고리</th>
-<th class="px-base py-3">제목</th>
-<th class="px-base py-3 whitespace-nowrap">작성일</th>
-<th class="px-base py-3 whitespace-nowrap text-right">관리</th>
-</tr>
-</thead>
-<tbody id="post-table-body">
-<tr><td colspan="5" class="px-base py-xxl text-center text-muted font-body-lg">불러오는 중입니다...</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
 
 <script src="db.js"></script>
 <script>
-        const loginView = document.getElementById('login-view');
-        const dashboardView = document.getElementById('dashboard-view');
+async function renderPosts() {
+  const tbody = document.getElementById('posts-table-body');
+  const posts = await getPosts();
+  if (!posts || posts.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-xl text-muted font-body-md text-body-md">작성된 게시글이 없습니다.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = posts.map((p, i) => `
+    <tr class="border-b border-border hover:bg-surface transition-colors">
+      <td class="px-lg py-3 font-body-md text-body-md text-muted">${posts.length - i}</td>
+      <td class="px-lg py-3">
+        <span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">${escapeHtml(p.category||'')}</span>
+      </td>
+      <td class="px-lg py-3">
+        <a href="news-detail.html?id=${p.id}" class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors line-clamp-1">${escapeHtml(p.title||'')}</a>
+      </td>
+      <td class="px-lg py-3 font-body-md text-body-md text-muted hidden sm:table-cell">${escapeHtml(p.date||'')}</td>
+      <td class="px-lg py-3">
+        <div class="flex items-center justify-center gap-2">
+          <a href="news-write.html?id=${p.id}" class="flex items-center gap-1 px-3 py-1.5 bg-surface border border-border text-grey-700 rounded-lg font-label-sm text-label-sm hover:bg-surface-container transition-all min-h-[36px]">
+            <span class="material-symbols-outlined text-[16px]">edit</span>수정
+          </a>
+          <button onclick="handleDelete(${p.id}, this)" class="flex items-center gap-1 px-3 py-1.5 bg-red-50 border border-red-200 text-error rounded-lg font-label-sm text-label-sm hover:bg-red-100 transition-all min-h-[36px]">
+            <span class="material-symbols-outlined text-[16px]">delete</span>삭제
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
 
-        function showLogin() {
-            loginView.classList.remove('hidden');
-            dashboardView.classList.add('hidden');
-        }
+async function handleDelete(id, btn) {
+  if (!confirm('이 게시글을 삭제하시겠습니까?')) return;
+  btn.disabled = true;
+  btn.textContent = '삭제 중...';
+  try {
+    await deletePost(id);
+    await renderPosts();
+  } catch(e) {
+    alert('삭제 실패: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">delete</span>삭제';
+  }
+}
 
-        function showDashboard() {
-            loginView.classList.add('hidden');
-            dashboardView.classList.remove('hidden');
-            loadDashboard();
-        }
+async function initPage() {
+  if (isAdmin()) {
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('dashboard-section').classList.remove('hidden');
+    renderPosts();
+  } else {
+    document.getElementById('login-section').classList.remove('hidden');
+    document.getElementById('login-section').classList.add('flex');
+    document.getElementById('dashboard-section').classList.add('hidden');
+  }
+}
 
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-        const loginBtn = document.getElementById('login-btn');
+document.getElementById('logout-btn').addEventListener('click', () => {
+  sessionStorage.removeItem('isAdmin');
+  location.reload();
+});
 
-        loginForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            loginError.classList.add('hidden');
-            const input = document.getElementById('password').value;
-            loginBtn.disabled = true;
-            loginBtn.textContent = '확인 중...';
-            try {
-                const cfg = await loadConfig();
-                if (input === cfg.adminPassword) {
-                    DB.loginAdmin();
-                    window.location.reload();
-                } else {
-                    loginError.textContent = '비밀번호가 올바르지 않습니다.';
-                    loginError.classList.remove('hidden');
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = '로그인';
-                }
-            } catch (err) {
-                loginError.textContent = '설정을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
-                loginError.classList.remove('hidden');
-                loginBtn.disabled = false;
-                loginBtn.textContent = '로그인';
-            }
-        });
+document.getElementById('login-btn').addEventListener('click', async () => {
+  const input = document.getElementById('password-input').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  btn.textContent = '확인 중...';
+  errEl.classList.add('hidden');
+  try {
+    const cfg = await loadConfig();
+    const pwd = cfg.admin_password || 'admin1234';
+    if (input === pwd) {
+      sessionStorage.setItem('isAdmin', 'true');
+      location.reload();
+    } else {
+      errEl.textContent = '비밀번호가 올바르지 않습니다.';
+      errEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = '로그인';
+    }
+  } catch(e) {
+    errEl.textContent = '오류가 발생했습니다: ' + e.message;
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = '로그인';
+  }
+});
 
-        document.getElementById('logout-btn').addEventListener('click', function () {
-            DB.logoutAdmin();
-            window.location.reload();
-        });
+document.getElementById('password-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
 
-        function renderTable(posts) {
-            const tbody = document.getElementById('post-table-body');
-            if (!posts || posts.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="px-base py-xxl text-center text-muted font-body-lg">작성된 게시글이 없습니다.</td></tr>';
-                return;
-            }
-            tbody.innerHTML = posts.map(function (p, i) {
-                return '<tr class="border-b border-border last:border-0 hover:bg-surface-container-low transition-colors">' +
-                    '<td class="px-base py-3 text-muted font-body-md text-body-md whitespace-nowrap">' + (i + 1) + '</td>' +
-                    '<td class="px-base py-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">' + escapeHtml(p.category || '소식') + '</span></td>' +
-                    '<td class="px-base py-3 font-body-md text-body-md text-on-surface"><a href="news-detail.html?id=' + encodeURIComponent(p.id) + '" class="hover:text-secondary hover:underline">' + escapeHtml(p.title || '') + '</a></td>' +
-                    '<td class="px-base py-3 text-muted font-body-md text-body-md whitespace-nowrap">' + escapeHtml(p.date || '') + '</td>' +
-                    '<td class="px-base py-3 whitespace-nowrap text-right">' +
-                    '<a href="news-write.html?id=' + encodeURIComponent(p.id) + '" class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-grey-700 hover:bg-surface-container transition-colors" title="수정"><span class="material-symbols-outlined text-[20px]">edit</span></a>' +
-                    '<button data-id="' + escapeHtml(p.id) + '" class="delete-btn inline-flex items-center justify-center w-9 h-9 rounded-lg text-error hover:bg-error-container transition-colors" title="삭제"><span class="material-symbols-outlined text-[20px]">delete</span></button>' +
-                    '</td>' +
-                    '</tr>';
-            }).join('');
-
-            document.querySelectorAll('.delete-btn').forEach(function (btn) {
-                btn.addEventListener('click', async function () {
-                    const id = btn.getAttribute('data-id');
-                    if (!confirm('정말 이 게시글을 삭제하시겠습니까?')) return;
-                    btn.disabled = true;
-                    try {
-                        await deletePost(id);
-                        loadDashboard();
-                    } catch (e) {
-                        alert(e.message);
-                        btn.disabled = false;
-                    }
-                });
-            });
-        }
-
-        async function loadDashboard() {
-            const tbody = document.getElementById('post-table-body');
-            try {
-                const posts = await getPosts();
-                renderTable(posts);
-            } catch (e) {
-                tbody.innerHTML = '<tr><td colspan="5" class="px-base py-xxl text-center text-error font-body-lg">게시글을 불러오지 못했습니다.</td></tr>';
-            }
-        }
-
-        if (isAdmin()) {
-            showDashboard();
-        } else {
-            showLogin();
-        }
-    </script>
-</body></html>
+initPage();
+</script>
+</body>
+</html>
