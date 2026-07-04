@@ -6,25 +6,19 @@ function escapeHtml(s) {
 
 async function loadConfig() {
   if (_config) return _config;
-  try {
-    const r = await fetch('/api/config');
-    if (r.ok) {
-      const d = await r.json();
-      if (d.github_token) {
-        _config = { github_token: String(d.github_token).trim(), admin_password: d.admin_password || 'admin1234' };
-        return _config;
-      }
-    }
-  } catch (e) {}
-  try {
-    const r = await fetch('config/git_config.json');
-    if (r.ok) {
-      const d = await r.json();
-      _config = { ...d, github_token: String(d.github_token || '').trim(), admin_password: d.admin_password || 'admin1234' };
-      return _config;
-    }
-  } catch (e) {}
-  return { github_token: '', admin_password: 'admin1234' };
+  let api = {}, file = {};
+  try { const r = await fetch('/api/config'); if (r.ok) api = await r.json(); } catch (e) {}
+  try { const r = await fetch('config/git_config.json'); if (r.ok) file = await r.json(); } catch (e) {}
+  const apiTok = String(api.github_token || '').trim();
+  const fileTok = String(file.github_token || '').trim();
+  _config = {
+    github_token: (apiTok && apiTok !== 'YOUR_GITHUB_TOKEN') ? apiTok : fileTok,
+    github_owner: file.github_owner || '',
+    github_repo: file.github_repo || '',
+    data_file_path: file.data_file_path || 'data/posts.json',
+    admin_password: api.admin_password || file.admin_password || 'admin1234'
+  };
+  return _config;
 }
 
 function isAdmin() {
