@@ -1,0 +1,23 @@
+# Jamsil Real Estate Agency
+
+> Premium Real Estate Agency in Jamsil-dong, Songpa-gu, Seoul. Specializing in high-end apartments, commercial spaces, and officetels (studio apartments).
+
+## Core Pages
+
+- [Home](https://jamsil-realty.vercel.app/): Main landing page showing premium recommended listings in Jamsil (e.g., Jamsil Els, Ricenz, Pineapple Arcade) and introduction of the lead agent, Chulsoo Kim.
+- [News & Notices](https://jamsil-realty.vercel.app/news): Bulletin board for the latest real estate updates, market trends, and notices.
+- [Admin Dashboard](https://jamsil-realty.vercel.app/admin): Secure admin login page for managing posts and listing announcements.
+
+## Target Properties & Area
+
+- **Location**: Jamsil-dong, Songpa-gu, Seoul, South Korea
+- **Key Properties**:
+  - **Jamsil Els (L'S)**: 84m² Premium Apartment (Sale/Rent)
+  - **Ricenz**: 59m² Renovated Apartment (Jeonse/Rent)
+  - **Pineapple Arcade**: 42m² Commercial Shop near Sincheon Station (Monthly Rent)
+
+## Technologies Used
+
+- **Frontend**: Single-page-like static HTML/CSS (Tailwind CSS, Google Fonts, Material Symbols)
+- **Data & Storage**: Hybrid local storage integrated with GitHub API for serverless data persistence
+- **Hosting & Backend**: Vercel Serverless Functions (api/config.js for secure configuration delivery)

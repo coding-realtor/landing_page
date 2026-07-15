@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /news
+Allow: /news-detail
+Disallow: /admin
+Disallow: /news-write
+Disallow: /api/
+Disallow: /config/
+Disallow: /_agent/
+
+Sitemap: https://jamsil-realty.vercel.app/sitemap.xml
